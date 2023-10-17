@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.human.prj.page.Criteria;
 import edu.human.prj.page.PageVO;
 import edu.human.prj.service.BoardService;
+import edu.human.prj.vo.BoardVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -30,8 +32,8 @@ public class BoardController  {
 //		return "board/list";
 //	}
 	
-	//http://localhost:8282/list2
-	//list2?pageNum=5&amount=10">1</a>
+	//http://localhost:8282/list
+	//list?pageNum=5&amount=10">1</a>
 	@GetMapping("/list")
 	public String list2(Criteria cri, Model model) {
 		log.info("list2() ..");
@@ -46,6 +48,43 @@ public class BoardController  {
 		
 		System.out.println();
 		return "board/list";
+	}
+	
+	@PostMapping("/write")
+	public String write(BoardVO board) {
+		log.info("write() .." + board);		
+		
+		boardService.writeBoard(board);
+		
+		return "redirect:/board/list";
+	}
+	
+	@GetMapping("/delete/{bid}")
+	public String delete(BoardVO board) {
+		log.info("delete() .." + board);		
+		
+		boardService.remove(board.getBid());
+		
+		return "redirect:/board/list";
+	}
+	
+	@GetMapping("/content/{bid}")
+	public String content(BoardVO board,Model model) {
+		log.info("content() .." + board);		
+		
+		model.addAttribute("board",boardService.get(board.getBid()));		
+		
+		return "/board/update";
+	}
+	
+	@PostMapping("/update")
+	public String update(BoardVO board) {
+		log.info("update() .." + board);
+		
+		boardService.modify(board);
+				
+		
+		return "redirect:/board/list";
 	}
 	
 }

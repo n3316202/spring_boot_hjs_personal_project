@@ -9,12 +9,11 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	 
   	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
- 	<link rel="stylesheet" type="text/css" href="css/main.css" />
+ 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css" />
 </head>
 
 <body>
- 	<%@ include file="../common/header.jsp" %>  
-
+ 	<%@ include file="../common/header.jsp" %>
 <main>
 <div class="container mt-3">
     <div class="container-fluid">
@@ -50,12 +49,12 @@
                   <td>${board.bid}</td>
                   <td>${board.bname}</td>
                   <td>
-                    <a href="board.bid">${board.btitle}</a>
+                    <a href="${pageContext.request.contextPath}/board/content/${board.bid}">${board.btitle}</a>
                   </td>
                   <td>${board.bhit}</td>
                   <td>${board.bdate}</td>
                   <td>
-                    <button class="btn btn-success" value="${board.bid}">삭제</button>
+                    <a href="${pageContext.request.contextPath}/board/delete/${board.bid}"><button class="btn btn-success" value="${board.bid}">삭제</button></a>
                   </td>
                 </tr>
                 </c:forEach>
@@ -64,8 +63,7 @@
             </table>
           </div>
           
-       <!--    페이징 처리 -->
-        
+       <!--    페이징 처리 -->        
           <nav class="d-flex justify-content-center" aria-label="Page navigation example">
             <ul class="pagination">
               
@@ -90,7 +88,44 @@
               
             </ul>
           </nav>
-          
+          <hr/>
+          <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">글쓰기</button>
+            <!-- 모달 스타트 -->
+            <div class="modal fade"  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-sl modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">글쓰기</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><br />
+                  </div>
+                  
+                  <form id="modal-form" action="${pageContext.request.contextPath}/board/write" method="POST" role="form">
+	                  <div class="modal-body">
+	                    <div class="mb-3">
+	                      <label for="recipient-name" class="col-form-label">작성자:</label>
+	                      <input type="text" name="bname" class="form-control" />
+	                    </div>
+	                    <div class="mb-3">
+	                      <label for="recipient-name" class="col-form-label">제목:</label>
+	                      <input type="text" name="btitle"  class="form-control" />
+	                    </div>
+	                    <div class="mb-3">
+	                      <label for="message-text" class="col-form-label">내용:</label>
+	                      <textarea class="form-control" name="bcontent"  rows="8" ></textarea>
+	                    </div>
+	                  </div>
+	                  <div class="modal-footer">
+	                    <button id="send-board" type="button" class="btn btn-primary" data-bs-dismiss="modal" >전송</button>
+	                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	                  </div>
+                  </form>
+                  
+                </div>
+              </div>
+            </div>
+            <!-- 모달 엔드 -->
+			
         </div>
       </div>
     </div>
@@ -98,5 +133,16 @@
 </main>
 
 	<%@ include file = "../common/footer.jsp" %>
-	</body>
+</body>
+
+<script type="text/javascript">
+
+$(document).ready(function(){	
+	$( "#send-board" ).on( "click", function() {
+		$("#modal-form").submit();
+	});
+});
+</script>
+
 </html>
+
