@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.human.prj.mapper.BoardMapper;
+import edu.human.prj.page.Criteria;
 import edu.human.prj.vo.BoardVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,17 +56,17 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.updateBoard(board);
 	}
 
-//	@Override
-//	public List<BoardVO> getListWithPaging(Criteria cri) {
-//		// TODO Auto-generated method stub
-//		log.info("getListWithPaging()......");
-//		return mapper.getListWithPaging(cri);
-//	}
-//
-//	// 페이징 처리 함수
-//	@Override
-//	public int getTotal() {
-//		log.info("service:getTotal()..");
-//		return mapper.getTotalCount();
-//	}
+	@Override
+	public List<BoardVO> getListWithPaging(Criteria cri) {
+		// TODO Auto-generated method stub
+		log.info("getListWithPaging()......");
+		return mapper.getListWithPaging(cri);
+	}
+
+	// 페이징 처리 함수
+	@Override
+	public int getTotal() {
+		log.info("service:getTotal()..");
+		return mapper.getTotalCount();
+	}
 }

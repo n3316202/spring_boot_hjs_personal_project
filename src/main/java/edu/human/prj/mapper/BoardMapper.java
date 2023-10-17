@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.human.prj.page.Criteria;
 import edu.human.prj.vo.BoardVO;
 
 
@@ -16,6 +17,6 @@ public interface BoardMapper {
 	public int insertBoard(BoardVO boardVO);
 	public int delete(int bId);	
 	public int updateBoard(BoardVO boardVO);	
-	//public List<BoardVO> getListWithPaging(Criteria cri);	
-	//public int getTotalCount();
+	public List<BoardVO> getListWithPaging(Criteria cri);	
+	public int getTotalCount();
 }
