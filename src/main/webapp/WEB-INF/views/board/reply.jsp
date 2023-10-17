@@ -19,8 +19,8 @@
       <div class="container">
         <div class="row">
           <div class="card col-md-6 offset-md-3 offset-md-3">
-            <h3 class="text-center">업데이트도 할수 있어요.</h3>
-            <form id="modal-form" action="${pageContext.request.contextPath}/board/update" method="POST" role="form">
+            <h3 class="text-center">댓글 달아 주세요</h3>
+            <form id="modal-form" action="${pageContext.request.contextPath}/board/reply" method="POST" role="form">
             <div class="card-body">
               <div class="form-group">
                 <label> Type </label>
@@ -31,7 +31,10 @@
               <div class="form-group">
                 <label> 게시판 번호 </label>
                 <input type="text" placeholder="bid" value="${board.bid}" class="form-control" disabled readonly />
-              	<input type="hidden" placeholder="bid" value="${board.bid}" name="bid" />
+              	<input type="hidden" name="bid" value="${board.bid}">
+              	<input type="hidden"  value="${board.bgroup}" name="bgroup" />
+              	<input type="hidden" value="${board.bindent}" name="bindent" />
+              	<input type="hidden"  value="${board.bstep}" name="bstep" />
               </div>
               <div class="form-group">
                 <label> 이름 </label>

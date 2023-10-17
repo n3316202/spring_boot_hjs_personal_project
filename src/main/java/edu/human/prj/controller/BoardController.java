@@ -81,10 +81,28 @@ public class BoardController  {
 	public String update(BoardVO board) {
 		log.info("update() .." + board);
 		
-		boardService.modify(board);
-				
+		boardService.modify(board);				
 		
 		return "redirect:/board/list";
 	}
 	
+	@GetMapping("/reply_view/{bid}")
+	public String reply_view(BoardVO board,Model model) {
+		log.info("reply_view() .." + board);
+		
+		model.addAttribute("board",boardService.get(board.getBid()));	
+				
+		
+		return "/board/reply";
+	}
+	
+	@PostMapping("/reply")
+	public String reply(BoardVO boardVO) {
+		System.out.println("reply() ..");
+	    
+		boardService.writeReply(boardVO);
+	    
+	    return "redirect:/board/list";
+	}
+
 }

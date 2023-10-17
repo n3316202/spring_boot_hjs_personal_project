@@ -39,7 +39,7 @@
                   <th>제목</th>
                   <th>날짜</th>
                   <th>히트</th>
-                  <th class="text-center">삭제</th>
+                  <th class="text-center">삭제 및 댓글</th>
                 </tr>
               </thead>
 
@@ -49,16 +49,17 @@
                   <td>${board.bid}</td>
                   <td>${board.bname}</td>
                   <td>
+                  	<c:forEach begin="1" end="${board.bindent}">[Re]</c:forEach>
                     <a href="${pageContext.request.contextPath}/board/content/${board.bid}">${board.btitle}</a>
                   </td>
                   <td>${board.bhit}</td>
                   <td>${board.bdate}</td>
                   <td>
                     <a href="${pageContext.request.contextPath}/board/delete/${board.bid}"><button class="btn btn-success" value="${board.bid}">삭제</button></a>
+                    <a href="${pageContext.request.contextPath}/board/reply_view/${board.bid}"><button class="btn btn-success" value="${board.bid}">댓글</button></a>
                   </td>
                 </tr>
-                </c:forEach>
-	
+                </c:forEach>	
               </tbody>
             </table>
           </div>
